@@ -2,7 +2,7 @@ import db from '../config/db.js';
 
 const loginMedico = async (email) => {
     const [dados] = await db.query(
-        'SELECT * From medico WHERE email = ?',
+        'SELECT id, senha From medicos WHERE email = ?',
          [email]);
 
          return dados[0];

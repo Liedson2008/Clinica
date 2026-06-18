@@ -3,7 +3,7 @@ import medicoController from '../controller/medicoController.js';
 
 const route = express.Router();
 
-route.get('/medico', medicoController.login);
+route.post('/medico/login', medicoController.login);
 route.get('/medico/:id', medicoController.listarConsultas);
 route.post('/medico', medicoController.cadastrarMedico);
 

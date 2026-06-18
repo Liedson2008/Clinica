@@ -40,8 +40,12 @@ const cadastrarMedico = async (req, res) => {
         const resultado = await cadastrar(dados);
         return res.status(200).json({message: 'Medico cadastrado com sucesso'});
     } catch (error) {
-        console.error('Erro no cadastro do medico: ', error);
-        return res.status(500).json({message: 'Erro no servidor'})
+        if(error.errno === 1062){
+        console.error('email ja existente: ', error);
+        return res.status(400).json({message: 'O email informado ja esta cadastrado, porfavor informe outro email'});
+        }
+        console.error('Erro ao cadastrar medico: ', error);
+        return res.status(500).json({message: 'Erro no servidor'});
     }
 }
 
