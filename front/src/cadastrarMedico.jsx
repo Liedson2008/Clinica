@@ -13,6 +13,8 @@ function CadastrarMedico() {
         crm: '',
         senha: ''
     })
+    const [status, setStatus] = useState('');
+    const [errorMensagem, setErrorMensagem] = useState('');
 
     const navigate = useNavigate();
 
@@ -31,12 +33,12 @@ function CadastrarMedico() {
             const resposta = await axios.post('http://localhost:3000/medico', Dados);
             console.log(resposta.data);
 
-                alert('medico cadastrado com sucesso');
-                navigate('/login/medico');
+            setStatus('sucesso');
             
         } catch (error) {
             console.error('Erro ao cadastrar medico: ', error.response.data);
-            alert(`Erro ao cadastrar medico: ${error.response.data.message}`);
+            setStatus('erro');
+             setErrorMensagem(error.response.data.message || 'Erro desconhecido');
         }
     }
     return (
@@ -84,8 +86,22 @@ function CadastrarMedico() {
                     </form>
                 </div>
             </div>
-
-
+            {status === 'sucesso' && 
+            <div className=' position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center p-3' style={{zIndex: 9999, backgroundColor: 'rgba(0, 0, 0, 0.5)'}}>
+                    <div className='alert alert-success mt-3'>
+                        <h5>Cadastro realizado com sucesso!</h5>
+                    <button className='btn btn-primary mt-2' onClick={() => navigate('/login/medico')} >Ir para o login</button>
+                    </div>
+                    </div>
+                    }
+                    {status === 'erro' && 
+                    <div className=' position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center p-3' style={{zIndex: 9999, backgroundColor: 'rgba(0, 0, 0, 0.5)'}}>
+                    <div className='alert alert-danger mt-3'>
+                        <h5>Erro ao cadastrar medico: {errorMensagem}</h5>
+                        <button className='btn btn-primary mt-2' onClick={() => setStatus('')} >OK</button>
+                        </div>
+                        </div>
+                        }
         </div>
     )
 }
