@@ -8,7 +8,7 @@ const loginMedico = async (email) => {
          return dados[0];
 }
 
-const listar = async (id_medico) => {
+const listarConsultas = async (id_medico) => {
     const [dados] = await db.query(
         'SELECT * FROM consultas WHERE id_medico = ?',
         [id_medico]
@@ -16,7 +16,7 @@ const listar = async (id_medico) => {
     return dados;
 }
 
- const cadastrar = async (dados) => {
+ const cadastrarMedico = async (dados) => {
     const {nome, data_nascimento, sexo, telefone, email, especialidade, crm, senha} = dados;
     const tipo = 'medico';
     const resultado = await  db.query(
@@ -26,4 +26,4 @@ const listar = async (id_medico) => {
    return resultado;
 }
 
-export {loginMedico, listar, cadastrar};
+export {loginMedico, listarConsultas, cadastrarMedico};

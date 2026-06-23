@@ -1,6 +1,6 @@
-import {loginMedico, listar, cadastrar} from '../model/medicoModel.js';
+import {loginMedico, listarConsultas, cadastrarMedico} from '../model/medicoModel.js';
 
-const login = async (req, res) => {
+const loginMedico = async (req, res) => {
     const {email, senha} = req.body;
     try {
       const medico = await loginMedico(email);
@@ -49,4 +49,4 @@ const cadastrarMedico = async (req, res) => {
     }
 }
 
-export default {login, listarConsultas, cadastrarMedico};
+export default {loginMedico, listarConsultas, cadastrarMedico};

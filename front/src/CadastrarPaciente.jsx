@@ -2,15 +2,13 @@ import { useState } from 'react';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 
-function CadastrarMedico() {
+function CadastrarPaciente() {
     const [Dados, setDados] = useState({
         nome: '',
         data_nascimento: '',
         sexo: '',
         telefone: '',
         email: '',
-        especialidade: '',
-        crm: '',
         senha: ''
     })
     const [status, setStatus] = useState('');
@@ -30,7 +28,7 @@ function CadastrarMedico() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const resposta = await axios.post('http://localhost:3000/medico/cadastrar', Dados);
+            const resposta = await axios.post('http://localhost:3000/paciente/cadastrar', Dados);
             console.log(resposta.data);
 
             setStatus('sucesso');
@@ -45,7 +43,7 @@ function CadastrarMedico() {
         <div className='container-fluid p-0 d-flex justify-content-center align-items-center vh-100 bg-primary'>
             <div className="card shadow w-100" style={{ maxWidth: '500px'}}>
                 <div className="card-body">
-                    <h2 className='card-title mb-4'>Cadastrar Médico</h2>
+                    <h2 className='card-title mb-4'>Cadastrar Paciente</h2>
                     <form onSubmit={handleSubmit}>
                         <label className='form-label'>Nome</label>
                         <input type='text' name='nome' className='form-control mb-3' required value={Dados.nome} onChange={handleChange} />
@@ -73,12 +71,6 @@ function CadastrarMedico() {
                         <label className='form-label'>Email</label>
                         <input type='email' name='email' className='form-control mb-3' required value={Dados.email} onChange={handleChange} />
 
-                        <label className='form-label'>Especialidade</label>
-                        <input type='text' name='especialidade' className='form-control mb-3' required value={Dados.especialidade} onChange={handleChange} />
-
-                        <label className='form-label'>CRM</label>
-                        <input type='text' name='crm' className='form-control mb-3' required value={Dados.crm} onChange={handleChange} />
-
                         <label className='form-label'>Senha</label>
                         <input type='password' name='senha' className='form-control mb-3' required value={Dados.senha} onChange={handleChange} />
 
@@ -90,7 +82,7 @@ function CadastrarMedico() {
             <div className=' position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center p-3' style={{zIndex: 9999, backgroundColor: 'rgba(0, 0, 0, 0.5)'}}>
                     <div className='alert alert-success mt-3'>
                         <h5>Cadastro realizado com sucesso!</h5>
-                    <button className='btn btn-primary mt-2' onClick={() => navigate('/login/medico')} >Ir para o login</button>
+                    <button className='btn btn-primary mt-2' onClick={() => navigate('/medico/login')} >Ir para o login</button>
                     </div>
                     </div>
                     }
@@ -105,4 +97,4 @@ function CadastrarMedico() {
         </div>
     )
 }
-export default CadastrarMedico;
+export default CadastrarPaciente;
