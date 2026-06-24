@@ -82,7 +82,7 @@ function CadastrarPaciente() {
             <div className=' position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center p-3' style={{zIndex: 9999, backgroundColor: 'rgba(0, 0, 0, 0.5)'}}>
                     <div className='alert alert-success mt-3'>
                         <h5>Cadastro realizado com sucesso!</h5>
-                    <button className='btn btn-primary mt-2' onClick={() => navigate('/medico/login')} >Ir para o login</button>
+                    <button className='btn btn-primary mt-2' onClick={() => navigate('/login/paciente')} >Ir para o login</button>
                     </div>
                     </div>
                     }

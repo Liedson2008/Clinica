@@ -1,9 +1,9 @@
-import {loginMedico, listarConsultas, cadastrarMedico} from '../model/medicoModel.js';
+import {login, listar, cadastrar} from '../model/medicoModel.js';
 
 const loginMedico = async (req, res) => {
     const {email, senha} = req.body;
     try {
-      const medico = await loginMedico(email);
+      const medico = await login(email);
       if(!medico) {
         return res.status(404).json({message: 'Médico nao encontrado'});
       }

@@ -1,9 +1,9 @@
-import { loginPaciente, listarConsultas, cadastrarPaciente } from '../model/pacienteModel.js';
+import { login, listar, cadastrar } from '../model/pacienteModel.js';
 
 const loginPaciente = async (req, res) => {
     const { email, senha } = req.body;
     try {
-        const paciente = await loginPaciente(email);
+        const paciente = await login(email);
 
         if (!paciente) {
             return res.status(404).json({ message: 'Paciente nao encontrado' });
@@ -22,7 +22,7 @@ const loginPaciente = async (req, res) => {
 
 const listarConsultas = async (req, res) => {
     const id_paciente = req.params.id;
-    const consultas = await listarConsultas(id_paciente);
+    const consultas = await listar(id_paciente);
     try {
         if (!consultas) {
             return res.status(404).json({ message: 'Nenhuma consulta encontrada' })
@@ -37,7 +37,7 @@ const listarConsultas = async (req, res) => {
 const cadastrarPaciente = async (req, res) => {
     const dados = req.body;
     try {
-        const resultado = await cadastrarPaciente(dados);
+        const resultado = await cadastrar(dados);
         return res.status(200).json({ message: 'Paciente cadastrado com sucesso' });
     } catch (error) {
         if (error.errno === 1062) {

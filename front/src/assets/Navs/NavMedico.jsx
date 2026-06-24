@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function Nav() {
+function NavMedico() {
 
     return (
 <nav className="navbar navbar-expand-lg navbar-light bg-light position-absolute w-100">
@@ -8,20 +8,14 @@ function Nav() {
   <div className="collapse navbar-collapse" id="navbarNav">
     <ul className="navbar-nav">
       <li className="nav-item active">
-       <Link className='nav-link' to='/'>LoginPaciente</Link>
+       <Link className='nav-link' to='/'>AgendarConsulta</Link>
       </li>
       <li className="nav-item">
-        <Link className='nav-link' to='/paciente/cadastrar'>CadastrarPaciente</Link>
-      </li>
-      <li className="nav-item">
-        <Link className='nav-link' to='/medico/login'>LoginMedico</Link>
-      </li>
-      <li className="nav-item">
-        <Link className='nav-link' to='/medico/cadastrar'>CadastrarMedico</Link>
+        <Link className='nav-link' to='/medico/login'>HistoricoConsultas</Link>
       </li>
     </ul>
   </div>
 </nav>
     )
 }
-export default Nav;
+export default NavMedico;

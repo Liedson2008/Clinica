@@ -1,14 +1,14 @@
-import db from '..config/db.js';
+import db from '../config/db.js';
 
-const loginPaciente = async (email) => {
+const login = async (email) => {
     const [dados] = await db.query(
-        'SELECT * FROM paciente WHERE email = ?',
+        'SELECT id, senha, tipo FROM paciente WHERE email = ?',
         [email]
     )
     return dados[0];
 }
 
-const listarConsultas = async (id_paciente) => {
+const listar = async (id_paciente) => {
    const [dados] = await db.query(
     'SELECT * FROM consultas where id_paciente = ?',
      [id_paciente]
@@ -16,7 +16,7 @@ const listarConsultas = async (id_paciente) => {
     return dados;
 }
 
-const cadastrarPaciente = async (dados) => {
+const cadastrar = async (dados) => {
     const { nome, data_nascimento, sexo, telefone, email, senha } = dados;
     const tipo = paciente;
     const resultado = await db.query(
@@ -26,4 +26,4 @@ const cadastrarPaciente = async (dados) => {
     return resultado;
 }
 
-export { loginPaciente, listarConsultas, cadastrarPaciente};
+export { login, listar, cadastrar};
