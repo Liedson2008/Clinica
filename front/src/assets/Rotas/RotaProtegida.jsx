@@ -17,19 +17,19 @@ function RotaProtegida({ tipoPermitido }) {
         return (
             <div>
                 <NavPaciente />
-                <div className='container mt-5'>
+                <div className='container' style={{marginTop: '70px'}}>
                     <Outlet />
                 </div>
             </div>
         )
     }
-    if( tipo == 'medico'){
+    if (tipo == 'medico') {
         return (
             <div>
                 <NavMedico />
-                
+                <div className='container' style={{marginTop: '70px'}}>
                     <Outlet />
-                
+                </div>
             </div>
         )
     }
