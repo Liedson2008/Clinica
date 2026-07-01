@@ -42,7 +42,9 @@ function CadastrarMedico() {
         }
     }
     return (
-        <div className='container-fluid p-0 d-flex justify-content-center align-items-center vh-100 bg-primary'>
+        <div className='container-fluid p-0 d-flex justify-content-center align-items-center vh-100 bg-primary' style={{ marginTop: '0px',
+         background: 'linear-gradient(to bottom right, #b0e6e2, #3dbbb5)',
+          minHeight: '100vh'}}>
             <div className="card shadow w-100" style={{ maxWidth: '500px'}}>
                 <div className="card-body">
                     <h2 className='card-title mb-4'>Cadastrar Médico</h2>
