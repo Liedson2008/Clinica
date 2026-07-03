@@ -27,8 +27,6 @@ function LoginMedico() {
             alert('Login efetuado com sucesso');
             localStorage.setItem('id_usuario', resposta.data.medico.id);
             localStorage.setItem('tipo_usuario', resposta.data.medico.tipo);
-            const tipo = localStorage.getItem('id_usuario')
-            console.log(tipo)
             navigate('/home/medico');
         } catch (error) {
             console.log('erro: ', error.response.data);

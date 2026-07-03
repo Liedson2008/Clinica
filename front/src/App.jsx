@@ -8,6 +8,7 @@ import RotaProtegida from './assets/Rotas/RotaProtegida.jsx';
 import HomePaciente from './paciente/HomePaciente.jsx';
 import HomeMedico from './medico/HomeMedico.jsx';
 import Home from './Home.jsx';
+import MedicoAgendar from './medico/MedicoAgendar.jsx';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
 
     <Route element={<RotaProtegida tipoPermitido='medico' />}>
     <Route path='/home/medico' element={<HomeMedico />} />
+    <Route path='/medico/agendarconsulta' element={<MedicoAgendar />} />
     </Route>
    </Routes>
    </BrowserRouter>

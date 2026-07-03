@@ -10,5 +10,7 @@ route.post('/medico/cadastrar', medicoController.cadastrarMedico);
 route.post('/paciente/login', pacienteController.loginPaciente)
 route.get('/paciente/:id', pacienteController.listarConsultas);
 route.post('/paciente/cadastrar', pacienteController.cadastrarPaciente);
+route.get('/medico/pacientes', medicoController.listarPacientes);
+route.post('/medico/agendar', medicoController.agendarConsulta);
 
 export default route;

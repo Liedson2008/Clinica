@@ -26,4 +26,17 @@ const listar = async (id_medico) => {
    return resultado;
 }
 
-export {login, listar, cadastrar};
+const agendar = async (dados) => {
+    const { data, tipo, descricao, id_paciente, id_medico, status } = dados;
+    const res = await db.query('INSERT INTO consultas (data, tipo, descricao, id_paciente, id_medico, status) VALUES (?, ?, ?, ?, ?, ?)',
+        [data, tipo, descricao, id_paciente, id_medico, status]
+    )
+    return res;
+}
+
+const pacientes = async () => {
+    const [res] = await db.query('SELECT id, nome FROM pacientes');
+    return res;
+}
+
+export {login, listar, cadastrar, agendar, pacientes};
