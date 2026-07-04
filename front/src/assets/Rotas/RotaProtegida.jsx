@@ -17,9 +17,7 @@ function RotaProtegida({ tipoPermitido }) {
         return (
             <div>
                 <NavPaciente />
-                <div className='container' style={{marginTop: '70px'}}>
-                    <Outlet />
-                </div>
+                <Outlet />
             </div>
         )
     }
@@ -27,9 +25,7 @@ function RotaProtegida({ tipoPermitido }) {
         return (
             <div>
                 <NavMedico />
-                <div className='container' style={{marginTop: '70px'}}>
-                    <Outlet />
-                </div>
+                <Outlet />
             </div>
         )
     }

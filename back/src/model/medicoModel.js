@@ -10,7 +10,7 @@ const login = async (email) => {
 
 const listar = async (id_medico) => {
     const [dados] = await db.query(
-        'SELECT consulats.data, consultas.tipo, consultas.descricao, medico.nome as medico_nome, paciente.nome as paciente_nome FROM consultas JOIN medico ON consultas.medico_id = medicos.id JOIN paciente ON consultas.paciente_id = pacientes.id WHERE consultas.id_medico = ?',
+        'SELECT consultas.data, consultas.tipo, consultas.descricao, medicos.nome as medico_nome, pacientes.nome as paciente_nome FROM consultas JOIN medicos ON consultas.id_medico = medicos.id JOIN pacientes ON consultas.id_paciente = pacientes.id WHERE consultas.id_medico = ?',
         [id_medico]
     );
     return dados;
@@ -27,7 +27,8 @@ const listar = async (id_medico) => {
 }
 
 const agendar = async (dados) => {
-    const { data, tipo, descricao, id_paciente, id_medico, status } = dados;
+    const status = 'agendada';
+    const { data, tipo, descricao, id_paciente, id_medico } = dados;
     const res = await db.query('INSERT INTO consultas (data, tipo, descricao, id_paciente, id_medico, status) VALUES (?, ?, ?, ?, ?, ?)',
         [data, tipo, descricao, id_paciente, id_medico, status]
     )

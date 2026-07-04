@@ -1,4 +1,4 @@
-import {login, listar, cadastrar, agendar, pacienets} from '../model/medicoModel.js';
+import {login, listar, cadastrar, agendar, pacientes} from '../model/medicoModel.js';
 
 const loginMedico = async (req, res) => {
     const {email, senha} = req.body;
@@ -52,7 +52,7 @@ const cadastrarMedico = async (req, res) => {
 const agendarConsulta = async (req, res) => {
     const dados = req.body;
     try {
-        const res = await agendar(dados);
+        const resposta = await agendar(dados);
         return res.status(200).json({message: 'Consulta agendada com sucesso'});
     }catch (error) {
         console.error('erro ao agendar consulta: ', error);
@@ -62,11 +62,11 @@ const agendarConsulta = async (req, res) => {
 
 const listarPacientes = async (req, res) => {
     try {
-        const res = await pacientes();
-        return res.status(200).json(res);
+        const resposta = await pacientes();
+        return res.status(200).json(resposta);
     }catch (error) {
         console.error('error ao listar pacientes: ', error);
-        return res.status(500).json({message: 'Erro no servidor ao listar pacientes'});
+        return res.status(500).json({message: 'Erro no servidor ao listar pacientes', error: error.message});
     }
 }
 export default {loginMedico, listarConsultas, cadastrarMedico, agendarConsulta, listarPacientes};

@@ -13,18 +13,22 @@ function HomeMedico() {
         setStatus(e.target.value);
 
     }
-
+useState(() => {
     const listarConsultas = async () => {
 
         const id_medico = localStorage.getItem('id_usuario');
 
         try {
-            const resposta = await axios.get(`http://localhost:3000/medico/consultas/${id_medico}`);
+            const resposta = await axios.get(`http://localhost:3000/medico/${id_medico}`);
             setConsultas(resposta.data);
         } catch (error) {
             console.error('erro ao listar consultas: ', error.response.data);
         }
     }
+
+    listarConsultas();
+}, []);
+    
 
     return (
         <div className='container' style={{ marginTop: '100px' }}>
@@ -57,7 +61,7 @@ function HomeMedico() {
                             <tbody>
                                 {consultas.map((consulta) => (
                                     <tr key={consulta.id}>
-                                        <th scope="row">{consulta.data}</th>
+                                        <th scope="row">{new Date(consulta.data).toLocaleDateString('pt-br')}</th>
                                         <td>{consulta.tipo}</td>
                                         <td>{consulta.descricao}</td>
                                         <td>{consulta.paciente_nome}</td>
