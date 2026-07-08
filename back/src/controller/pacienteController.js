@@ -22,12 +22,12 @@ const loginPaciente = async (req, res) => {
 
 const listarConsultas = async (req, res) => {
     const id_paciente = req.params.id;
-    const consultas = await listar(id_paciente);
     try {
+        const consultas = await listar(id_paciente);
         if (!consultas) {
             return res.status(404).json({ message: 'Nenhuma consulta encontrada' })
         }
-        return res.status(200).json({ consultas })
+        return res.status(200).json(consultas)
     } catch (error) {
         console.error('Erro em listar as consultas', error)
         return res.status(500).json({ message: 'Erro no servidor' })

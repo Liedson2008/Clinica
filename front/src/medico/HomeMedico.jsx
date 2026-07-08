@@ -13,7 +13,7 @@ function HomeMedico() {
         setStatus(e.target.value);
 
     }
-useState(() => {
+useEffect(() => {
     const listarConsultas = async () => {
 
         const id_medico = localStorage.getItem('id_usuario');

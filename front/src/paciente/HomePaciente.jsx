@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -13,16 +13,17 @@ function HomePaciente() {
         setStatus(e.target.value);
 
     }
-useState(() => {
+useEffect(() => {
     const listarConsultas = async () => {
 
         const id_paciente = localStorage.getItem('id_usuario');
 
         try {
             const resposta = await axios.get(`http://localhost:3000/paciente/${id_paciente}`);
+            console.log(resposta.data);
             setConsultas(resposta.data);
         } catch (error) {
-            console.error('erro ao listar consultas: ', error.response.data);
+            console.error('erro ao listar consultas: ', error.response);
         }
     }
 
