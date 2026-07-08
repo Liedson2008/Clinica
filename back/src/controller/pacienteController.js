@@ -1,4 +1,4 @@
-import { login, listar, cadastrar } from '../model/pacienteModel.js';
+import { login, listar, cadastrar, agendar, medicos } from '../model/pacienteModel.js';
 
 const loginPaciente = async (req, res) => {
     const { email, senha } = req.body;
@@ -49,4 +49,25 @@ const cadastrarPaciente = async (req, res) => {
     }
 }
 
-export default { loginPaciente, listarConsultas, cadastrarPaciente}
+const agendarConsulta = async (req, res) => {
+    const dados = req.body;
+    try {
+        const resposta = await agendar(dados);
+        return res.status(200).json({message: 'Consulta agendada com sucesso'});
+    }catch (error) {
+        console.error('erro ao agendar consulta: ', error);
+        return res.status(500).json({message: 'Erro no servidor ao agendar consulta'})
+    }
+}
+
+const listarMedicos = async (req, res) => {
+    try {
+        const resposta = await medicos();
+        return res.status(200).json(resposta);
+    }catch (error) {
+        console.error('error ao listar medicos: ', error);
+        return res.status(500).json({message: 'Erro no servidor ao listar medicos', error: error.message});
+    }
+}
+
+export default { loginPaciente, listarConsultas, cadastrarPaciente, agendarConsulta, listarMedicos };

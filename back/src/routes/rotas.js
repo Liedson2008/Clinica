@@ -10,6 +10,8 @@ route.post('/paciente/login', pacienteController.loginPaciente)
 route.post('/paciente/cadastrar', pacienteController.cadastrarPaciente);
 route.get('/medico/pacientes', medicoController.listarPacientes);
 route.post('/medico/agendar', medicoController.agendarConsulta);
+route.get('/paciente/medicos', pacienteController.listarMedicos);
+route.post('/paciente/agendar', pacienteController.agendarConsulta);
 route.get('/medico/:id', medicoController.listarConsultas);
 route.get('/paciente/:id', pacienteController.listarConsultas);
 

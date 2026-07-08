@@ -10,7 +10,7 @@ const login = async (email) => {
 
 const listar = async (id_medico) => {
     const [dados] = await db.query(
-        'SELECT consultas.data, consultas.tipo, consultas.descricao, medicos.nome as medico_nome, pacientes.nome as paciente_nome FROM consultas JOIN medicos ON consultas.id_medico = medicos.id JOIN pacientes ON consultas.id_paciente = pacientes.id WHERE consultas.id_medico = ?',
+        'SELECT consultas.data, consultas.tipo, consultas.descricao, consultas.status, medicos.nome as medico_nome, pacientes.nome as paciente_nome FROM consultas JOIN medicos ON consultas.id_medico = medicos.id JOIN pacientes ON consultas.id_paciente = pacientes.id WHERE consultas.id_medico = ?',
         [id_medico]
     );
     return dados;

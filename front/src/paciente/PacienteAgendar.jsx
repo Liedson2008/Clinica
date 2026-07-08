@@ -2,41 +2,41 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 
-function MedicoAgendar() {
+function PacienteAgendar() {
     const [Dados, setDados] = useState({
         data: '',
         tipo: '',
         descricao: '',
-        id_paciente: '',
-        id_medico: localStorage.getItem('id_usuario'),
+        id_paciente: localStorage.getItem('id_usuario'),
+        id_medico: '',
         status: 'agendada'
     })
-    const [pacientes, setPacientes] = useState([]);
-    const [nomePaciente, setNomePaciente] = useState('');
+    const [medicos, setMedicos] = useState([]);
+    const [nomeMedico, setNomeMedico] = useState('');
     const [dropDown, setDropDown] = useState(false);
-    const [pacientesFiltrados, setPacientesFiltrados] = useState([]);
+    const [medicosFiltrados, setMedicosFiltrados] = useState([]);
 
     const navigate = useNavigate();
 
-    const handlePaciente = (e) => {
+    const handleMedico = (e) => {
         const valor = e.target.value;
-        setNomePaciente(valor);
+        setNomeMedico(valor);
 
         if (valor.length > 0) {
-            const filtrados = pacientes.filter(p => p.nome.toLowerCase().startsWith(valor.toLowerCase()));
-            setPacientesFiltrados(filtrados)
+            const filtrados = medicos.filter(m => m.nome.toLowerCase().startsWith(valor.toLowerCase()));
+            setMedicosFiltrados(filtrados)
             setDropDown(true);
 
         } else {
             setDropDown(false);
-            setDados({ ...Dados, id_paciente: '' });
+            setDados({ ...Dados, id_medico: '' });
         }
     }
 
-    const selecionarPaciente = (paciente) => {
-        setNomePaciente(paciente.nome);
+    const selecionarMedico = (medico) => {
+        setNomeMedico(medico.nome);
         setDropDown(false);
-        setDados({ ...Dados, id_paciente: paciente.id });
+        setDados({ ...Dados, id_medico: medico.id });
     }
 
     const handleChange = (e) => {
@@ -51,10 +51,10 @@ function MedicoAgendar() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const resposta = await axios.post('http://localhost:3000/medico/agendar', Dados);
+            const resposta = await axios.post('http://localhost:3000/paciente/agendar', Dados);
             console.log(resposta.data);
             alert('Agendamento efetuado com sucesso');
-            navigate('/home/medico');
+            navigate('/home/paciente');
         } catch (error) {
             console.log('erro: ', error.response.data);
             alert(error.response.data.message);
@@ -62,17 +62,17 @@ function MedicoAgendar() {
     }
 
     useEffect(() => {
-        const listarPacientes = async () => {
+        const listarMedicos = async () => {
             try {
-                const pacientes = await axios.get('http://localhost:3000/medico/pacientes');
-                setPacientes(pacientes.data);
+                const medicos = await axios.get('http://localhost:3000/paciente/medicos');
+                setMedicos(medicos.data);
             } catch (error) {
-                console.error('error ao listar pacientes: ', error.message);
-                alert('erro ao listar pacientes, tente agendar novamente mais tarde');
+                console.error('error ao listar medicos: ', error.message);
+                alert('erro ao listar medicos, tente agendar novamente mais tarde');
             }
         }
 
-        listarPacientes();
+        listarMedicos();
     }, []);
     return (
         <div className='container-fluid p-0 d-flex justify-content-center align-items-center vh-100' style={{
@@ -110,9 +110,9 @@ function MedicoAgendar() {
                                 />
                             </div>
                             <div className='col-12'>
-                                <label className='form-label mt-2'>Paciente</label>
+                                <label className='form-label mt-2'>Medico</label>
                                 <div style={{ position: 'relative' }}>
-                                    <input className='form-control mb-3' required value={nomePaciente} onChange={handlePaciente} />
+                                    <input className='form-control mb-3' required value={nomeMedico} onChange={handleMedico} />
                                     {dropDown && (
                                         <div style={{
                                             position: 'absolute',
@@ -126,16 +126,16 @@ function MedicoAgendar() {
                                             maxHeight: '200px',
                                             overflowY: 'auto'
                                         }}>
-                                            {pacientesFiltrados.length > 0 ? (
-                                                pacientesFiltrados.map(paciente => (
-                                                    <div key={paciente.id} onClick={() => selecionarPaciente(paciente)}
+                                            {medicosFiltrados.length > 0 ? (
+                                                medicosFiltrados.map(medico => (
+                                                    <div key={medico.id} onClick={() => selecionarMedico(medico)}
                                                         className='dropdown-item'
                                                         style={{ cursor: 'pointer' }}>
-                                                        {paciente.nome}
+                                                        {medico.nome}
                                                     </div>
                                                 ))
                                             ) : (
-                                                <div className='dropdown-item text-muted'>Nenhum paciente encontrado</div>
+                                                <div className='dropdown-item text-muted'>Nenhum medico encontrado</div>
                                             )}
 
                                         </div>
@@ -154,4 +154,4 @@ function MedicoAgendar() {
     )
 
 }
-export default MedicoAgendar;
+export default PacienteAgendar;

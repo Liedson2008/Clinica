@@ -28,7 +28,7 @@ function LoginPaciente() {
             alert('Login efetuado com sucesso');
             localStorage.setItem('id_usuario', resposta.data.paciente.id);
             localStorage.setItem('tipo_usuario', resposta.data.paciente.tipo);
-            navigate('/paciente/home');
+            navigate('/home/paciente');
         } catch (error) {
             console.log('erro: ', error.response.data);
             alert(error.response.data.mensage);
