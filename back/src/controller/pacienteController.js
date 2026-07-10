@@ -1,4 +1,4 @@
-import { login, listar, cadastrar, agendar, medicos } from '../model/pacienteModel.js';
+import { login, listar, cadastrar, agendar, medicos, editar } from '../model/pacienteModel.js';
 
 const loginPaciente = async (req, res) => {
     const { email, senha } = req.body;
@@ -70,4 +70,14 @@ const listarMedicos = async (req, res) => {
     }
 }
 
-export default { loginPaciente, listarConsultas, cadastrarPaciente, agendarConsulta, listarMedicos };
+const editarConsulta = async (req, res) => {
+    try {
+        const resposta = await editar(req);
+        return res.sendStatus(200)
+    }catch (error) {
+        console.error('erro ao editar consulta: ', error);
+        return res.sendStatus(500)
+    }
+}
+
+export default { loginPaciente, listarConsultas, cadastrarPaciente, agendarConsulta, listarMedicos, editarConsulta };

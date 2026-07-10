@@ -10,7 +10,7 @@ const login = async (email) => {
 
 const listar = async (id_paciente) => {
    const [dados] = await db.query(
-    'SELECT consultas.data, consultas.tipo, consultas.descricao, consultas.status, medicos.nome as medico_nome, pacientes.nome as paciente_nome FROM consultas JOIN medicos ON consultas.id_medico = medicos.id JOIN pacientes ON consultas.id_paciente = pacientes.id WHERE consultas.id_paciente = ?',
+    'SELECT consultas.id, consultas.data, consultas.tipo, consultas.descricao, consultas.status, consultas.id_medico, medicos.nome as medico_nome, pacientes.nome as paciente_nome FROM consultas JOIN medicos ON consultas.id_medico = medicos.id JOIN pacientes ON consultas.id_paciente = pacientes.id WHERE consultas.id_paciente = ?',
      [id_paciente]
     )
     return dados;
@@ -36,8 +36,20 @@ const agendar = async (dados) => {
 }
 
 const medicos = async () => {
-    const [res] = await db.query('SELECT id, nome FROM medicos');
+    const [res] = await db.query('SELECT id, nome FROM medicos'); 
     return res;
 }
 
-export { login, listar, cadastrar, agendar, medicos };
+const editar = async (req) =>{
+    const { id, data, tipo, descricao, id_medico, status } = req.body;
+    try {
+        const res = await db.query('UPDATE consultas SET data = ?, tipo =?, descricao = ?, id_medico = ?, status = ? WHERE id = ?',
+            [data, tipo, descricao, id_medico, status, id]
+        )
+        return res;
+    }catch (error) {
+        console.error('erro ao editar consulta: ', error);
+    }
+}
+
+export { login, listar, cadastrar, agendar, medicos, editar };

@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 function HomeMedico() {
-
+const navigate = useNavigate();
     const [consultas, setConsultas] = useState([]);
     const [status, setStatus] = useState('agendada');
 
@@ -22,13 +22,18 @@ useEffect(() => {
             const resposta = await axios.get(`http://localhost:3000/medico/${id_medico}`);
             setConsultas(resposta.data);
         } catch (error) {
-            console.error('erro ao listar consultas: ', error.response.data);
+            console.error('erro ao listar consultas: ', error.response);
         }
     }
 
     listarConsultas();
 }, []);
+
+const consultasFiltradas = consultas.filter(c => c.status === status);
     
+const editarConsulta = (consulta) => {
+    navigate('/editarconsulta/medico', { state: { consulta } });
+}
 
     return (
         <div className='container' style={{ marginTop: '100px' }}>
@@ -36,9 +41,9 @@ useEffect(() => {
                 <div className='col-auto'>
                     <label className='form-label'>Status da consulta</label>
                     <select name='status' className='form-select mb-3' value={status} onChange={handleChange}>
-                        <option value=''>Agendadas</option>
-                        <option value='M'>Finalizadas</option>
-                        <option value='F'>Faltas</option>
+                        <option value='agendada'>Agendadas</option>
+                        <option value='finalizada'>Finalizadas</option>
+                        <option value='falta'>Faltas</option>
                     </select>
                 </div>
             </div>
@@ -56,10 +61,11 @@ useEffect(() => {
                                     <th scope="col">Paciente</th>
                                     <th scope="col">Medico</th>
                                     <th scope="col">Status</th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {consultas.map((consulta) => (
+                                {consultasFiltradas.map((consulta) => (
                                     <tr key={consulta.id}>
                                         <th scope="row">{new Date(consulta.data).toLocaleDateString('pt-br')}</th>
                                         <td>{consulta.tipo}</td>
@@ -67,13 +73,18 @@ useEffect(() => {
                                         <td>{consulta.paciente_nome}</td>
                                         <td>{consulta.medico_nome}</td>
                                         <td>{consulta.status}</td>
+                                        <td>
+                                        {consulta.status === 'agendada' && (
+                                            <button className='btn btn-warning' onClick={() => editarConsulta(consulta)}>Editar</button>
+                                        )}
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
                     </div>
                 )}
-                <Link to='/medico/agendarconsulta' className='btn btn-primary mt-3'>Agendar Consulta</Link>
+                <Link to='/agendarconsulta/medico' className='btn btn-primary mt-3'>Agendar Consulta</Link>
             </div>
         </div>
     )
